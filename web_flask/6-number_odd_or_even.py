@@ -37,6 +37,7 @@ def number_html(n):
     """ function that returns a number"""
     return render_template('5-number.html', n=n)
 
+
 @app.route('/number_odd_or_even/<int:n>')
 def number_odd_or_even(n):
     return render_template('6-number_odd_or_even.html', n=n)
