@@ -1,0 +1,62 @@
+<?php
+// Función para actualizar el estado de los checkboxes en el almacenamiento local
+function updateCheckboxState($key, $value) {
+    // Guarda el estado en el almacenamiento local del navegador
+    echo '<script>
+    localStorage.setItem("' . $key . '", ' . $value . ');
+    </script>';
+}
+
+// Inicializa un array para mantener los estados de los checkboxes
+$checkbox_states = [];
+
+// Verifica si se ha enviado el formulario
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Actualiza los estados de los checkboxes y almacénalos en el almacenamiento local
+    foreach ($_POST as $key => $value) {
+        if (substr($key, 0, 7) === 'tarea1_' || substr($key, 0, 7) === 'tarea2_') {
+            $checkbox_states[$key] = $value === 'on';
+            updateCheckboxState($key, $value === 'on' ? 'true' : 'false');
+        }
+    }
+}
+
+?>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checklist en PHP</title>
+</head>
+<body>
+    <h1>Checklist en PHP</h1>
+    <form method="post">
+        <h2>Formulario 1</h2>
+        <label for="tarea1">
+            <input type="checkbox" id="tarea1" name="tareas1[]" <?php echo isset($checkbox_states['tarea1']) && $checkbox_states['tarea1'] ? 'checked' : ''; ?> disabled> Tarea 1
+        </label><br>
+
+        <label for="tarea2">
+            <input type="checkbox" id="tarea2" name="tareas1[]" <?php echo isset($checkbox_states['tarea2']) && $checkbox_states['tarea2'] ? 'checked' : ''; ?> disabled> Tarea 2
+        </label><br>
+
+        <!-- Repite el mismo patrón para Formulario 2 -->
+
+        <h2>Formulario 2</h2>
+        <label for="tarea4">
+            <input type="checkbox" id="tarea4" name="tareas2[]" <?php echo isset($checkbox_states['tarea4']) && $checkbox_states['tarea4'] ? 'checked' : ''; ?> disabled> Tarea 4
+        </label><br>
+
+        <label for "tarea5">
+            <input type="checkbox" id="tarea5" name="tareas2[]" <?php echo isset($checkbox_states['tarea5']) && $checkbox_states['tarea5'] ? 'checked' : ''; ?> disabled> Tarea 5
+        </label><br>
+
+        <label for="tarea6">
+            <input type="checkbox" id="tarea6" name="tareas2[]" <?php echo isset($checkbox_states['tarea6']) && $checkbox_states['tarea6'] ? 'checked' : ''; ?> disabled> Tarea 6
+        </label><br>
+
+        <input type="submit" value="Guardar Cambios">
+    </form>
+</body>
+</html>
+

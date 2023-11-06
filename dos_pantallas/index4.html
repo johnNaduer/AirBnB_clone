@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Checklist en PHP</title>
+</head>
+<body>
+    <h1>Checklist en PHP</h1>
+
+    <form method="post" action="procesar_checklist4.php">
+        <h2>Formulario 1</h2>
+        <label for="tarea1">
+            <input type="checkbox" id="tarea1" name="tareas[]" value="Tarea 1"> Tarea 1
+        </label><br>
+
+        <label for="tarea2">
+            <input type="checkbox" id="tarea2" name="tareas[]" value="Tarea 2"> Tarea 2
+        </label><br>
+
+        <label for="tarea3">
+            <input type="checkbox" id="tarea3" name="tareas[]" value="Tarea 3"> Tarea 3
+        </label><br>
+
+        <input type="hidden" name="formulario1" value="1">
+
+        <h2>Formulario 2</h2>
+        <label for="tarea4">
+            <input type="checkbox" id="tarea4" name="tareas[]" value="Tarea 4"> Tarea 4
+        </label><br>
+
+        <label for="tarea5">
+            <input type="checkbox" id="tarea5" name="tareas[]" value="Tarea 5"> Tarea 5
+        </label><br>
+
+        <label for="tarea6">
+            <input type="checkbox" id="tarea6" name="tareas[]" value="Tarea 6"> Tarea 6
+        </label><br>
+
+        <input type="hidden" name="formulario2" value="1">
+
+        <input type="submit" value="Enviar">
+    </form>
+
+    <script>
+        // Recuperar el estado del checklist del almacenamiento local del navegador
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        checkboxes.forEach(checkbox => {
+            const key = checkbox.id;
+            const isChecked = localStorage.getItem(key) === 'true';
+            checkbox.checked = isChecked;
+
+            checkbox.addEventListener('change', () => {
+                localStorage.setItem(key, checkbox.checked);
+            });
+        });
+    </script>
+</body>
+</html>
+
